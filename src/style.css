@@ -1,0 +1,1475 @@
+/* Design System & Themes for Retro Arcade Couples Photobooth */
+
+:root {
+  /* Neon Palette */
+  --neon-pink: #ff7ebb;
+  --neon-pink-glow: rgba(255, 126, 187, 0.6);
+  --neon-cyan: #00f0ff;
+  --neon-cyan-glow: rgba(0, 240, 255, 0.6);
+  --neon-yellow: #fff017;
+  --neon-yellow-glow: rgba(255, 240, 23, 0.6);
+  
+  /* Cabin Color Scheme */
+  --bg-dark: #0a0a0f;
+  --bg-cabinet: #151522;
+  --bg-screen-bezel: #252538;
+  --bg-screen-inner: #101018;
+  --bg-panel: rgba(30, 30, 46, 0.85);
+  
+  /* Fonts */
+  --font-retro: 'Press Start 2P', monospace;
+  --font-cute: 'Fredoka', sans-serif;
+  --font-sans: 'Outfit', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-dark);
+  background-image: 
+    radial-gradient(circle at 20% 30%, rgba(255, 126, 187, 0.15) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(0, 240, 255, 0.15) 0%, transparent 40%),
+    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+    linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  background-size: 100% 100%, 100% 100%, 100% 4px, 6px 100%;
+  font-family: var(--font-sans);
+  color: #f0f0f5;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  overflow-x: hidden;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-screen-inner);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--bg-screen-bezel);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--neon-pink);
+}
+
+/* ==========================================================================
+   Arcade Cabinet Wrapper
+   ========================================================================== */
+.arcade-cabinet {
+  background: var(--bg-cabinet);
+  border: 8px solid #1a1a2a;
+  border-radius: 40px 40px 16px 16px;
+  box-shadow: 
+    0 20px 50px rgba(0, 0, 0, 0.8),
+    0 0 40px rgba(255, 126, 187, 0.25),
+    inset 0 0 20px rgba(0, 240, 255, 0.15);
+  width: 100%;
+  max-width: 960px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Cabinet side panels decorative gradients */
+.arcade-cabinet::before, .arcade-cabinet::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 12px;
+  pointer-events: none;
+  z-index: 10;
+}
+.arcade-cabinet::before {
+  left: 0;
+  background: linear-gradient(90deg, var(--neon-pink), transparent);
+}
+.arcade-cabinet::after {
+  right: 0;
+  background: linear-gradient(-90deg, var(--neon-cyan), transparent);
+}
+
+/* ==========================================================================
+   Arcade Header / Marquee
+   ========================================================================== */
+.arcade-marquee {
+  background: #08080c;
+  border-bottom: 6px solid #1e1e30;
+  padding: 24px 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.arcade-marquee::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--neon-pink), var(--neon-cyan), var(--neon-yellow));
+}
+
+.neon-title {
+  font-family: var(--font-retro);
+  font-size: 2.5rem;
+  color: #fff;
+  text-shadow: 
+    0 0 5px #fff, 
+    0 0 10px #fff, 
+    0 0 20px var(--neon-pink), 
+    0 0 40px var(--neon-pink), 
+    0 0 80px var(--neon-pink);
+  letter-spacing: 4px;
+  animation: neon-pulse 1.5s infinite alternate;
+  position: relative;
+  display: inline-block;
+}
+
+.marquee-sub {
+  font-family: var(--font-retro);
+  font-size: 0.8rem;
+  color: var(--neon-cyan);
+  letter-spacing: 6px;
+  margin-top: 10px;
+  text-shadow: 0 0 10px var(--neon-cyan-glow);
+}
+
+@keyframes neon-pulse {
+  from {
+    text-shadow: 
+      0 0 5px #fff, 
+      0 0 10px #fff, 
+      0 0 20px var(--neon-pink), 
+      0 0 40px var(--neon-pink);
+  }
+  to {
+    text-shadow: 
+      0 0 2px #fff, 
+      0 0 5px #fff, 
+      0 0 10px var(--neon-pink), 
+      0 0 25px var(--neon-pink),
+      0 0 50px var(--neon-pink);
+  }
+}
+
+/* ==========================================================================
+   Screen Frame & Bezel
+   ========================================================================== */
+.arcade-screen-bezel {
+  background: var(--bg-screen-bezel);
+  border-bottom: 6px solid #151522;
+  padding: 30px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+/* CRT Glare & Scanline Effect Overlay */
+.arcade-screen-glare {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  right: 30px;
+  bottom: 30px;
+  background: radial-gradient(circle at 50% 15%, rgba(255, 255, 255, 0.08) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 5;
+  border-radius: 20px;
+}
+
+.arcade-screen-content {
+  background: var(--bg-screen-inner);
+  border: 8px solid #0f0f15;
+  border-radius: 20px;
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.9);
+  width: 100%;
+  min-height: 520px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Screen CRT scanlines */
+.arcade-screen-content::after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+  background-size: 100% 3px, 6px 100%;
+  z-index: 4;
+  pointer-events: none;
+}
+
+/* Screen Transitions */
+.screen {
+  display: none;
+  opacity: 0;
+  transform: scale(0.98);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  width: 100%;
+  min-height: 504px;
+  padding: 24px;
+}
+
+.screen.active {
+  display: flex;
+  flex-direction: column;
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ==========================================================================
+   Screen 1: Welcome View
+   ========================================================================== */
+.welcome-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 30px;
+}
+
+.arcade-logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heart-pixel-art {
+  font-size: 6rem;
+  filter: drop-shadow(0 0 15px var(--neon-pink));
+  animation: heart-beat 1s infinite alternate cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes heart-beat {
+  from { transform: scale(1); }
+  to { transform: scale(1.15); }
+}
+
+.arcade-blink {
+  font-family: var(--font-retro);
+  font-size: 0.9rem;
+  color: var(--neon-yellow);
+  text-shadow: 0 0 8px var(--neon-yellow-glow);
+  animation: blink-anim 1s infinite steps(2, start);
+  letter-spacing: 2px;
+}
+
+@keyframes blink-anim {
+  to { visibility: hidden; }
+}
+
+/* Buttons */
+.arcade-btn-primary {
+  font-family: var(--font-retro);
+  font-size: 1.1rem;
+  font-weight: bold;
+  padding: 16px 36px;
+  border-radius: 12px;
+  border: 4px solid #fff;
+  background: #111;
+  color: #fff;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.2s ease;
+  letter-spacing: 2px;
+}
+
+.arcade-btn-primary.neon-pink {
+  border-color: var(--neon-pink);
+  box-shadow: 0 0 15px var(--neon-pink-glow), inset 0 0 10px var(--neon-pink-glow);
+  color: var(--neon-pink);
+}
+.arcade-btn-primary.neon-pink:hover {
+  background: var(--neon-pink);
+  color: #111;
+  box-shadow: 0 0 25px var(--neon-pink), inset 0 0 10px rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+.arcade-btn-primary.neon-cyan {
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 15px var(--neon-cyan-glow), inset 0 0 10px var(--neon-cyan-glow);
+  color: var(--neon-cyan);
+}
+.arcade-btn-primary.neon-cyan:hover {
+  background: var(--neon-cyan);
+  color: #111;
+  box-shadow: 0 0 25px var(--neon-cyan), inset 0 0 10px rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+.arcade-btn-primary.neon-yellow {
+  border-color: var(--neon-yellow);
+  box-shadow: 0 0 15px var(--neon-yellow-glow), inset 0 0 10px var(--neon-yellow-glow);
+  color: var(--neon-yellow);
+}
+.arcade-btn-primary.neon-yellow:hover {
+  background: var(--neon-yellow);
+  color: #111;
+  box-shadow: 0 0 25px var(--neon-yellow), inset 0 0 10px rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+.arcade-btn-secondary {
+  font-family: var(--font-retro);
+  font-size: 0.85rem;
+  padding: 14px 28px;
+  border-radius: 10px;
+  border: 2px solid #555;
+  background: rgba(20, 20, 30, 0.8);
+  color: #bbb;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.arcade-btn-secondary:hover {
+  border-color: #fff;
+  color: #fff;
+  background: #252538;
+}
+
+.arcade-btn-primary:active, .arcade-btn-secondary:active {
+  transform: translateY(1px);
+}
+
+/* ==========================================================================
+   Screen 2: Setup View
+   ========================================================================== */
+.screen-title {
+  font-family: var(--font-retro);
+  font-size: 1.3rem;
+  text-align: center;
+  color: var(--neon-cyan);
+  margin-bottom: 24px;
+  text-shadow: 0 0 10px var(--neon-cyan-glow);
+  letter-spacing: 2px;
+}
+
+.setup-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 20px;
+}
+
+.settings-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.setting-label {
+  font-family: var(--font-retro);
+  font-size: 0.65rem;
+  color: #8f92a1;
+  letter-spacing: 1px;
+}
+
+/* Layout options grid */
+.layout-options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.layout-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 2px solid #2e2e42;
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.layout-card:hover {
+  border-color: var(--neon-pink);
+  background: rgba(255, 126, 187, 0.05);
+}
+
+.layout-card.active {
+  border-color: var(--neon-pink);
+  box-shadow: 0 0 12px var(--neon-pink-glow);
+  background: rgba(255, 126, 187, 0.1);
+}
+
+/* Layout Previews */
+.layout-preview {
+  width: 50px;
+  height: 70px;
+  border: 2px solid #8f92a1;
+  background: #000;
+  border-radius: 4px;
+  padding: 4px;
+  display: flex;
+  gap: 2px;
+  pointer-events: none;
+}
+
+.layout-card.active .layout-preview {
+  border-color: var(--neon-pink);
+}
+
+.preview-strip {
+  flex-direction: column;
+}
+.preview-strip span {
+  flex: 1;
+  background: #333;
+  border-radius: 1px;
+}
+.layout-card.active .preview-strip span {
+  background: rgba(255, 126, 187, 0.4);
+}
+
+.preview-strip-3 {
+  flex-direction: column;
+}
+.preview-strip-3 span {
+  flex: 1;
+  background: #333;
+  border-radius: 1px;
+}
+.layout-card.active .preview-strip-3 span {
+  background: rgba(255, 126, 187, 0.4);
+}
+
+.preview-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+}
+.preview-grid span {
+  background: #333;
+  border-radius: 1px;
+}
+.layout-card.active .preview-grid span {
+  background: rgba(255, 126, 187, 0.4);
+}
+
+.layout-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-align: center;
+  color: #ddd;
+}
+
+/* Frame design buttons */
+.frame-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.frame-thumb-btn {
+  flex: 1;
+  min-width: 110px;
+  padding: 12px;
+  border-radius: 8px;
+  border: 2px solid #2e2e42;
+  background: var(--frame-bg);
+  color: var(--frame-text);
+  font-family: var(--font-cute);
+  font-weight: bold;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+
+.frame-thumb-btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+
+.frame-thumb-btn.active {
+  border-color: #fff !important;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 4px 6px rgba(0,0,0,0.3);
+  transform: scale(1.03);
+}
+
+/* Retro arcade input styling */
+.arcade-input {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  background: rgba(0, 0, 0, 0.4);
+  border: 2px solid #2e2e42;
+  border-radius: 10px;
+  padding: 12px 16px;
+  color: #fff;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+.arcade-input:focus {
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 8px var(--neon-cyan-glow);
+}
+
+.setup-actions {
+  margin-top: auto;
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 15px;
+}
+
+/* ==========================================================================
+   Screen 3: Capture Screen
+   ========================================================================== */
+.capture-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.capture-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.photo-indicator {
+  font-family: var(--font-retro);
+  font-size: 0.75rem;
+  color: var(--neon-yellow);
+  text-shadow: 0 0 5px var(--neon-yellow-glow);
+}
+
+.capture-timer-badge {
+  font-family: var(--font-retro);
+  font-size: 0.75rem;
+  padding: 6px 12px;
+  background: rgba(255, 126, 187, 0.15);
+  border: 1px solid var(--neon-pink);
+  color: var(--neon-pink);
+  border-radius: 4px;
+  box-shadow: 0 0 8px var(--neon-pink-glow);
+}
+
+/* Viewport with camera lens look */
+.camera-viewport-wrapper {
+  width: 100%;
+  max-width: 480px;
+  aspect-ratio: 4 / 3;
+  position: relative;
+  border: 4px solid #252538;
+  border-radius: 16px;
+  background: #000;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.8), inset 0 0 30px rgba(0,0,0,1);
+  overflow: hidden;
+}
+
+.camera-lens-reflection {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0) 50%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.webcam-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+#webcam-feed {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#webcam-feed.mirrored {
+  transform: scaleX(-1);
+}
+
+/* Fallback loading indicator */
+.camera-placeholder {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  background: #08080c;
+  color: #8f92a1;
+  font-family: var(--font-retro);
+  font-size: 0.65rem;
+  z-index: 1;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(255, 126, 187, 0.1);
+  border-top: 4px solid var(--neon-pink);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Camera shutter flash */
+.shutter-flash {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: white;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 6;
+}
+
+.shutter-flash.flash-active {
+  animation: flash-anim 0.5s ease-out forwards;
+}
+
+@keyframes flash-anim {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Camera countdown overlay */
+.countdown-overlay {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0,0,0,0.3);
+  z-index: 5;
+}
+
+#countdown-number {
+  font-family: var(--font-retro);
+  font-size: 5rem;
+  color: var(--neon-yellow);
+  text-shadow: 
+    0 0 10px var(--neon-yellow),
+    0 0 30px var(--neon-yellow-glow),
+    0 0 50px var(--neon-yellow-glow);
+  transform: scale(0.8);
+  animation: countdown-pulse 1s infinite alternate cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes countdown-pulse {
+  from { transform: scale(0.7); opacity: 0.7; }
+  to { transform: scale(1.1); opacity: 1; }
+}
+
+.capture-actions {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.capture-tip {
+  font-size: 0.75rem;
+  color: #777;
+  text-align: center;
+}
+
+/* ==========================================================================
+   Screen 4: Review Screen
+   ========================================================================== */
+.review-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.screen-subtitle {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #8f92a1;
+  margin-top: -15px;
+  margin-bottom: 20px;
+}
+
+.captured-photos-grid {
+  display: grid;
+  gap: 16px;
+  flex: 1;
+  margin-bottom: 24px;
+}
+
+/* Dynamic grid layouts for review */
+.captured-photos-grid.layout-4-strip {
+  grid-template-columns: repeat(4, 1fr);
+}
+.captured-photos-grid.layout-3-strip {
+  grid-template-columns: repeat(3, 1fr);
+}
+.captured-photos-grid.layout-2x2 {
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, auto);
+}
+
+.review-card {
+  position: relative;
+  background: #151522;
+  border: 3px solid #2e2e42;
+  border-radius: 10px;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: border-color 0.2s ease;
+}
+
+.review-card:hover {
+  border-color: var(--neon-yellow);
+}
+
+.review-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.btn-retake {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-retro);
+  font-size: 0.55rem;
+  background: rgba(0, 0, 0, 0.75);
+  border: 1px solid var(--neon-yellow);
+  color: var(--neon-yellow);
+  border-radius: 4px;
+  padding: 6px 12px;
+  cursor: pointer;
+  opacity: 0.85;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.review-card:hover .btn-retake {
+  opacity: 1;
+  background: var(--neon-yellow);
+  color: #111;
+  box-shadow: 0 0 8px var(--neon-yellow-glow);
+}
+
+.review-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ==========================================================================
+   Screen 5: Decorate Screen
+   ========================================================================== */
+.decorate-content {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 20px;
+  height: 100%;
+  max-height: 520px;
+}
+
+.photo-strip-preview-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+}
+
+.photo-strip-shadow-wrap {
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.6));
+}
+
+/* Photo strip representation */
+.photo-strip-container {
+  width: 160px; /* Reduced from 200px to fit vertically within the screen bezel */
+  background: var(--frame-bg, #ffb7c5);
+  color: var(--frame-text, #fff);
+  padding: 12px 10px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+}
+
+.strip-header {
+  font-family: var(--font-cute);
+  font-size: 0.8rem; /* Scaled down slightly */
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  word-wrap: break-word;
+  height: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Photo grid layout on the strip */
+.strip-photos {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Dynamic layouts on physical strip */
+.photo-strip-container.layout-2x2 .strip-photos {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 6px;
+}
+
+.strip-photo-frame {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: #000;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+/* Swap Pending active state (Blinking neon border) */
+.strip-photo-frame.swap-pending {
+  border-color: var(--neon-yellow);
+  box-shadow: 0 0 12px var(--neon-yellow-glow);
+  animation: swap-pulse 1s infinite alternate;
+}
+
+@keyframes swap-pulse {
+  from { opacity: 0.8; border-color: var(--neon-yellow); }
+  to { opacity: 1; border-color: #fff; }
+}
+
+.strip-photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+/* Photo interactive hover action overlay */
+.photo-action-overlay {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.65);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 5;
+}
+
+.strip-photo-frame:hover .photo-action-overlay,
+.strip-photo-frame.action-active .photo-action-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.photo-action-btn {
+  background: #111;
+  border: 2px solid var(--neon-cyan);
+  color: var(--neon-cyan);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.photo-action-btn:hover {
+  background: var(--neon-cyan);
+  color: #111;
+  box-shadow: 0 0 8px var(--neon-cyan);
+  transform: scale(1.1);
+}
+
+.photo-action-btn.btn-swap-photo {
+  border-color: var(--neon-yellow);
+  color: var(--neon-yellow);
+}
+
+.photo-action-btn.btn-swap-photo:hover {
+  background: var(--neon-yellow);
+  color: #111;
+  box-shadow: 0 0 8px var(--neon-yellow);
+}
+
+.strip-footer {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.strip-date {
+  font-family: var(--font-cute);
+  font-size: 0.7rem;
+  font-weight: bold;
+  opacity: 0.95;
+}
+
+/* Sticker Drag Overlay on top of strip container */
+.sticker-interactive-overlay {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none; /* Let clicks pass through to photos below */
+  z-index: 10;
+  overflow: hidden;
+}
+
+/* Draggable Sticker Instance styling */
+.sticker-instance {
+  position: absolute;
+  cursor: move;
+  user-select: none;
+  touch-action: none;
+  z-index: 100;
+  padding: 6px;
+  box-sizing: content-box;
+  pointer-events: auto; /* Reactivate clicks for stickers specifically */
+}
+
+.sticker-instance img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  pointer-events: none;
+}
+
+/* Control handles for sticker */
+.sticker-instance.active {
+  border: 1.5px dashed var(--neon-cyan);
+}
+
+.sticker-handle {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  background: #fff;
+  border: 2px solid var(--neon-cyan);
+  border-radius: 50%;
+  display: none;
+  cursor: pointer;
+  z-index: 102;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.sticker-instance.active .sticker-handle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sticker-handle-delete {
+  top: -8px;
+  right: -8px;
+  background: #ff5555;
+  border-color: #fff;
+  color: #fff;
+  font-size: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.sticker-handle-resize {
+  bottom: -8px;
+  right: -8px;
+  background: var(--neon-cyan);
+  cursor: nwse-resize;
+}
+
+/* Sidebar Sticker Drawer */
+.decorate-sidebar {
+  display: flex;
+  flex-direction: column;
+  background: rgba(0,0,0,0.3);
+  border-radius: 12px;
+  padding: 16px;
+  gap: 14px;
+}
+
+.sidebar-title {
+  font-family: var(--font-retro);
+  font-size: 0.75rem;
+  color: var(--neon-pink);
+  text-shadow: 0 0 5px var(--neon-pink-glow);
+  letter-spacing: 1px;
+}
+
+.sticker-categories {
+  display: flex;
+  gap: 8px;
+  border-bottom: 2px solid #2e2e42;
+  padding-bottom: 8px;
+  overflow-x: auto;
+}
+
+.category-tab {
+  background: transparent;
+  border: none;
+  color: #8f92a1;
+  font-family: var(--font-cute);
+  font-weight: bold;
+  font-size: 0.9rem;
+  padding: 4px 8px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.category-tab.active {
+  color: var(--neon-cyan);
+  border-bottom: 2px solid var(--neon-cyan);
+  margin-bottom: -10px;
+}
+
+.sticker-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  flex: 1;
+  overflow-y: auto;
+  max-height: 180px;
+  padding-right: 4px;
+}
+
+.sticker-item {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid #2e2e42;
+  border-radius: 8px;
+  padding: 6px;
+  cursor: pointer;
+  aspect-ratio: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.sticker-item:hover {
+  background: rgba(0, 240, 255, 0.1);
+  border-color: var(--neon-cyan);
+  transform: scale(1.08);
+}
+
+.sticker-item svg, .sticker-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.instructions-card {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid #222;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 0.75rem;
+  color: #8f92a1;
+}
+
+.instructions-card h4 {
+  color: #ddd;
+  margin-bottom: 4px;
+}
+
+.instructions-card ul {
+  padding-left: 14px;
+}
+
+.decorate-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ==========================================================================
+   Screen 6: Download & Save
+   ========================================================================== */
+.download-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.final-export-view {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  position: relative;
+  min-height: 280px;
+  width: 100%;
+}
+
+.final-strip-shadow {
+  max-height: 320px;
+  filter: drop-shadow(0 15px 30px rgba(0,0,0,0.8));
+  border-radius: 4px;
+}
+
+.export-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: #8f92a1;
+  font-family: var(--font-retro);
+  font-size: 0.65rem;
+}
+
+.download-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+}
+
+/* ==========================================================================
+   Console / Control Panel Design (Physical Elements)
+   ========================================================================== */
+.arcade-control-panel {
+  background: #1e1e2f;
+  border-top: 8px solid #1a1a2a;
+  border-bottom: 8px solid #0d0d12;
+  padding: 24px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  box-shadow: inset 0 8px 12px rgba(255,255,255,0.08);
+}
+
+.arcade-control-panel::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 4px;
+  background: linear-gradient(90deg, var(--neon-pink), var(--neon-cyan));
+  opacity: 0.8;
+}
+
+/* Physical Joystick */
+.control-joystick-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.joystick-base {
+  width: 70px;
+  height: 70px;
+  background: radial-gradient(circle, #333 40%, #151520 70%, #000 100%);
+  border: 4px solid #111;
+  border-radius: 50%;
+  position: relative;
+  box-shadow: inset 0 3px 6px rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.joystick-shaft {
+  width: 10px;
+  height: 45px;
+  background: linear-gradient(90deg, #999, #eee, #777);
+  border-radius: 4px;
+  transform-origin: bottom center;
+  transform: rotate(0deg);
+  position: absolute;
+  bottom: 30px;
+  transition: transform 0.15s ease;
+  z-index: 2;
+}
+
+.joystick-ball {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 
+    0 4px 6px rgba(0,0,0,0.4),
+    inset 0 3px 6px rgba(255,255,255,0.6);
+}
+
+.red-ball {
+  background: radial-gradient(circle at 35% 35%, #ff4d4d 0%, #cc0000 80%);
+}
+
+.joystick-label {
+  font-family: var(--font-retro);
+  font-size: 0.55rem;
+  color: #8f92a1;
+}
+
+/* Animate joystick when interacting with buttons */
+.arcade-cabinet:hover .joystick-shaft {
+  animation: joystick-wiggle 4s infinite alternate ease-in-out;
+}
+
+@keyframes joystick-wiggle {
+  0% { transform: rotate(0deg); }
+  20% { transform: rotate(10deg) skewX(2deg); }
+  40% { transform: rotate(-8deg); }
+  60% { transform: rotate(12deg); }
+  80% { transform: rotate(-10deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* Console Speakers */
+.console-speakers {
+  display: flex;
+  gap: 6px;
+}
+.console-speakers span {
+  width: 6px;
+  height: 24px;
+  background: #111;
+  border-radius: 3px;
+  box-shadow: inset 0 2px 2px rgba(255,255,255,0.05);
+}
+
+/* Action Buttons */
+.control-buttons {
+  display: flex;
+  gap: 20px;
+}
+
+.btn-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.console-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 4px solid #111;
+  cursor: pointer;
+  position: relative;
+  outline: none;
+  box-shadow: 0 4px 0 #000, 0 6px 10px rgba(0,0,0,0.5);
+  transition: transform 0.05s ease, box-shadow 0.05s ease;
+}
+
+.console-btn::after {
+  content: '';
+  position: absolute;
+  top: 4px; left: 4px; right: 4px; bottom: 4px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.btn-pink {
+  background: radial-gradient(circle at 40% 40%, var(--neon-pink) 30%, #b82e6d 80%);
+}
+.btn-blue {
+  background: radial-gradient(circle at 40% 40%, var(--neon-cyan) 30%, #009cb8 80%);
+}
+.btn-yellow {
+  background: radial-gradient(circle at 40% 40%, var(--neon-yellow) 30%, #b8ab00 80%);
+}
+
+.console-btn:active {
+  transform: translateY(4px);
+  box-shadow: 0 0px 0 #000, 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.btn-label {
+  font-family: var(--font-retro);
+  font-size: 0.55rem;
+  color: #8f92a1;
+}
+
+/* ==========================================================================
+   Cabinet Base / Coin Door
+   ========================================================================== */
+.arcade-cabinet-base {
+  background: #0d0d12;
+  padding: 16px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.coin-door {
+  width: 140px;
+  height: 90px;
+  background: #18181c;
+  border: 4px solid #000;
+  border-radius: 8px;
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
+}
+
+.coin-slot {
+  flex: 1;
+  background: #0d0d0f;
+  border: 2px solid #000;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px;
+  position: relative;
+}
+
+.insert-coin-led {
+  font-family: var(--font-retro);
+  font-size: 8px;
+  color: #ff3333;
+  text-shadow: 0 0 4px #ff0000;
+  letter-spacing: 0.5px;
+  animation: led-blink 1.2s infinite alternate;
+}
+
+@keyframes led-blink {
+  from { opacity: 0.3; }
+  to { opacity: 1; }
+}
+
+.coin-entry {
+  width: 6px;
+  height: 30px;
+  background: #ff3333;
+  box-shadow: 0 0 6px #ff0000;
+  border-radius: 2px;
+}
+
+.coin-return {
+  width: 40px;
+  background: #0d0d0f;
+  border: 2px solid #000;
+  border-radius: 4px;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.8);
+}
+
+.arcade-brand {
+  font-family: var(--font-retro);
+  font-size: 0.6rem;
+  color: #3e3e52;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+  .arcade-cabinet {
+    border-width: 4px;
+  }
+  .arcade-marquee {
+    padding: 16px 10px;
+  }
+  .neon-title {
+    font-size: 1.8rem;
+  }
+  .arcade-screen-bezel {
+    padding: 15px;
+  }
+  .arcade-screen-content {
+    min-height: 480px;
+  }
+  .decorate-content {
+    grid-template-columns: 1fr;
+    max-height: none;
+    overflow-y: visible;
+  }
+  .photo-strip-preview-area {
+    min-height: 360px;
+  }
+  .sticker-grid {
+    max-height: 120px;
+  }
+  .layout-options {
+    grid-template-columns: 1fr;
+  }
+  .frame-options {
+    justify-content: center;
+  }
+  .arcade-control-panel {
+    padding: 16px 20px;
+  }
+  .joystick-base {
+    width: 50px;
+    height: 50px;
+  }
+  .joystick-shaft {
+    height: 35px;
+    bottom: 20px;
+  }
+  .joystick-ball {
+    width: 24px;
+    height: 24px;
+    top: -18px;
+  }
+  .console-btn {
+    width: 36px;
+    height: 36px;
+  }
+  .coin-door {
+    display: none;
+  }
+}

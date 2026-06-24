@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Retro Arcade Couples Photobooth</title>
+    <!-- Google Fonts for retro/cute arcade style -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Press+Start+2P&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <!-- Main Arcade Cabinet -->
+    <div class="arcade-cabinet">
+      
+      <!-- Arcade Header / Marquee -->
+      <div class="arcade-marquee">
+        <h1 class="neon-title" data-text="CUPID SNAP">CUPID SNAP</h1>
+        <div class="marquee-sub">ARCADE PHOTOBOOTH</div>
+      </div>
+
+      <!-- Main Screen Area -->
+      <div class="arcade-screen-bezel">
+        <div class="arcade-screen-glare"></div>
+        <div class="arcade-screen-content" id="screen-container">
+          
+          <!-- SCREEN 1: Welcome -->
+          <div class="screen active" id="screen-welcome">
+            <div class="welcome-content">
+              <div class="arcade-logo-container">
+                <div class="heart-pixel-art">❤️</div>
+              </div>
+              <p class="arcade-blink">PRESS START BUTTON TO BEGIN</p>
+              <button class="arcade-btn-primary neon-pink" id="btn-start-session">
+                <span class="btn-glow"></span>
+                START SESSION
+              </button>
+            </div>
+          </div>
+
+          <!-- SCREEN 2: Setup -->
+          <div class="screen" id="screen-setup">
+            <div class="setup-content">
+              <h2 class="screen-title">PHOTO SETTINGS</h2>
+              
+              <!-- Option: Number of Photos -->
+              <div class="settings-group">
+                <label class="setting-label">Choose Grid Layout</label>
+                <div class="layout-options">
+                  <div class="layout-card active" data-layout="4-strip">
+                    <div class="layout-preview preview-strip">
+                      <span></span><span></span><span></span><span></span>
+                    </div>
+                    <div class="layout-label">Classic 4-Cut Strip</div>
+                  </div>
+                  <div class="layout-card" data-layout="2x2">
+                    <div class="layout-preview preview-grid">
+                      <span></span><span></span><span></span><span></span>
+                    </div>
+                    <div class="layout-label">2 x 2 Grid</div>
+                  </div>
+                  <div class="layout-card" data-layout="3-strip">
+                    <div class="layout-preview preview-strip-3">
+                      <span></span><span></span><span></span>
+                    </div>
+                    <div class="layout-label">3-Cut Mini Strip</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Option: Frame Theme -->
+              <div class="settings-group">
+                <label class="setting-label">Select Frame Border Theme</label>
+                <div class="frame-options">
+                  <button class="frame-thumb-btn active" data-frame="pink-hearts" style="--frame-bg: #ffb7c5; --frame-text: #ffffff;">
+                    <span>Pink Hearts</span>
+                  </button>
+                  <button class="frame-thumb-btn" data-frame="neon-grid" style="--frame-bg: #121214; --frame-text: #00f0ff; border: 2px solid #00f0ff;">
+                    <span>Neon Arcade</span>
+                  </button>
+                  <button class="frame-thumb-btn" data-frame="pastel-yellow" style="--frame-bg: #fff5cc; --frame-text: #5c3d2e;">
+                    <span>Yellow Honey</span>
+                  </button>
+                  <button class="frame-thumb-btn" data-frame="classic-white" style="--frame-bg: #ffffff; --frame-text: #111111; border: 1px solid #ddd;">
+                    <span>Classic White</span>
+                  </button>
+                  <button class="frame-thumb-btn" data-frame="gothic-black" style="--frame-bg: #111111; --frame-text: #ffffff; border: 1px solid #333;">
+                    <span>Midnight Noir</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Option: Custom Date/Text -->
+              <div class="settings-group">
+                <label for="input-custom-text" class="setting-label">Custom Text (e.g. Names / Date)</label>
+                <input type="text" id="input-custom-text" placeholder="♥ LOVE YOU ♥" maxlength="30" class="arcade-input" />
+              </div>
+
+              <div class="setup-actions">
+                <button class="arcade-btn-primary neon-cyan" id="btn-setup-next">NEXT: CAMERA SETUP &gt;</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- SCREEN 3: Capture -->
+          <div class="screen" id="screen-capture">
+            <div class="capture-content">
+              <div class="capture-header">
+                <div class="photo-indicator">PHOTO <span id="current-photo-index">1</span> OF <span id="total-photo-count">4</span></div>
+                <div class="capture-timer-badge" id="capture-timer-container">
+                  READY
+                </div>
+              </div>
+
+              <!-- Camera Viewport with Selected Frame Overlay -->
+              <div class="camera-viewport-wrapper">
+                <div class="camera-lens-reflection"></div>
+                <div class="webcam-container">
+                  <video id="webcam-feed" autoplay playsinline muted class="mirrored"></video>
+                  <div class="camera-placeholder" id="camera-fallback-msg">
+                    <div class="spinner"></div>
+                    <p>Connecting webcam...</p>
+                  </div>
+                  <!-- Camera Flash Overlay -->
+                  <div class="shutter-flash" id="shutter-flash"></div>
+                  <!-- Countdown Overlay -->
+                  <div class="countdown-overlay" id="countdown-overlay">
+                    <span id="countdown-number">3</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="capture-actions">
+                <button class="arcade-btn-primary neon-yellow" id="btn-trigger-capture">TAKE PHOTO</button>
+                <div class="capture-tip">Tip: Get ready! Photos will take automatically with a 3s countdown.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SCREEN 4: Review & Retake -->
+          <div class="screen" id="screen-review">
+            <div class="review-content">
+              <h2 class="screen-title">REVIEW YOUR SHOTS</h2>
+              <p class="screen-subtitle">Click any photo to retake it</p>
+
+              <div class="captured-photos-grid" id="review-grid">
+                <!-- Dynamically populated review items -->
+              </div>
+
+              <div class="review-actions">
+                <button class="arcade-btn-secondary" id="btn-review-back">&lt; BACK</button>
+                <button class="arcade-btn-primary neon-pink" id="btn-review-next">DECORATE! &gt;</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- SCREEN 5: Decorate / Stickers -->
+          <div class="screen" id="screen-decorate">
+            <div class="decorate-content">
+              
+              <!-- Left Side: Interactive Photo Strip Preview -->
+              <div class="photo-strip-preview-area">
+                <div class="photo-strip-shadow-wrap">
+                  <div class="photo-strip-container" id="decorating-strip">
+                    <!-- Photo Strip Header / Custom labels -->
+                    <div class="strip-header" id="strip-custom-text">LOVE YOU</div>
+                    
+                    <!-- Photos go here -->
+                    <div class="strip-photos" id="strip-photos-container">
+                      <!-- Photo frames dynamically populated -->
+                    </div>
+                    
+                    <!-- Sticker interactive layer overlaying the strip -->
+                    <div class="sticker-interactive-overlay" id="sticker-overlay"></div>
+                    
+                    <div class="strip-footer">
+                      <div class="strip-date" id="strip-date-text">2026.06.24</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Right Side: Sticker Panel / Controls -->
+              <div class="decorate-sidebar">
+                <h3 class="sidebar-title">STICKER DRAWER</h3>
+                
+                <!-- Category Selectors -->
+                <div class="sticker-categories">
+                  <button class="category-tab active" data-category="hearts">♥ Hearts</button>
+                  <button class="category-tab" data-category="cute">★ Kawaii</button>
+                  <button class="category-tab" data-category="phrases">💬 Words</button>
+                  <button class="category-tab" data-category="retro">🕹️ Retro</button>
+                </div>
+
+                <!-- Sticker Grid -->
+                <div class="sticker-grid" id="sticker-drawer">
+                  <!-- Dynamically populated stickers -->
+                </div>
+
+                <div class="instructions-card">
+                  <h4>How to Decorate:</h4>
+                  <ul>
+                    <li>Click a sticker to add it</li>
+                    <li>Drag to position on the strip</li>
+                    <li>Use corners to resize & rotate</li>
+                    <li>Double click (or click X) to delete</li>
+                  </ul>
+                </div>
+
+                <div class="decorate-actions">
+                  <button class="arcade-btn-secondary" id="btn-decorate-back">&lt; RETAKE PHOTOS</button>
+                  <button class="arcade-btn-primary neon-cyan" id="btn-decorate-next">FINISH &gt;</button>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+
+          <!-- SCREEN 6: Save & Download -->
+          <div class="screen" id="screen-download">
+            <div class="download-content">
+              <h2 class="screen-title">YOUR MEMORY STRIP</h2>
+              <p class="screen-subtitle">Save or download your arcade strip!</p>
+
+              <div class="final-export-view">
+                <div class="export-spinner" id="export-loader">
+                  <div class="spinner"></div>
+                  <p>Developing photos...</p>
+                </div>
+                <img id="final-strip-image" class="final-strip-shadow" alt="Your Photo Strip" style="display: none;" />
+              </div>
+
+              <div class="download-actions">
+                <a href="#" download="arcade-photobooth.png" class="arcade-btn-primary neon-yellow" id="link-download-strip">
+                  DOWNLOAD PHOTO STRIP
+                </a>
+                <button class="arcade-btn-secondary" id="btn-restart-session">
+                  START NEW SESSION
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Arcade Control Panel (Physical Console Graphics) -->
+      <div class="arcade-control-panel">
+        <div class="control-joystick-wrap">
+          <div class="joystick-base">
+            <div class="joystick-shaft">
+              <div class="joystick-ball red-ball"></div>
+            </div>
+          </div>
+          <div class="joystick-label">MOVE</div>
+        </div>
+
+        <div class="console-speakers">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+
+        <div class="control-buttons">
+          <div class="btn-wrap">
+            <button class="console-btn btn-pink" id="console-btn-1"></button>
+            <span class="btn-label">SNAP</span>
+          </div>
+          <div class="btn-wrap">
+            <button class="console-btn btn-blue" id="console-btn-2"></button>
+            <span class="btn-label">RETAKE</span>
+          </div>
+          <div class="btn-wrap">
+            <button class="console-btn btn-yellow" id="console-btn-3"></button>
+            <span class="btn-label">FINISH</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cabinet Coin Door / Feet -->
+      <div class="arcade-cabinet-base">
+        <div class="coin-door">
+          <div class="coin-slot">
+            <div class="insert-coin-led">INSERT COIN</div>
+            <div class="coin-entry"></div>
+          </div>
+          <div class="coin-return"></div>
+        </div>
+        <div class="arcade-brand">CUPID-OS v1.0</div>
+      </div>
+
+    </div>
+    
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
