@@ -1416,60 +1416,238 @@ body {
 @media (max-width: 768px) {
   body {
     padding: 10px;
+    align-items: flex-start; /* Let page scroll naturally if tall */
   }
+  
   .arcade-cabinet {
     border-width: 4px;
+    border-radius: 20px;
   }
+  
   .arcade-marquee {
-    padding: 16px 10px;
+    padding: 14px 10px;
   }
+  
   .neon-title {
     font-size: 1.8rem;
+    letter-spacing: 2px;
   }
+  
+  .marquee-sub {
+    font-size: 0.65rem;
+    letter-spacing: 3px;
+  }
+  
   .arcade-screen-bezel {
     padding: 15px;
   }
+  
   .arcade-screen-content {
-    min-height: 480px;
+    min-height: auto;
   }
+
+  .screen {
+    padding: 16px;
+    min-height: auto;
+  }
+
+  /* Setup Screen */
+  .layout-options {
+    grid-template-columns: repeat(3, 1fr); /* Keep columns, don't stack vertically */
+    gap: 8px;
+  }
+  
+  .layout-card {
+    padding: 8px;
+  }
+  
+  .layout-preview {
+    width: 35px;
+    height: 50px;
+  }
+  
+  .layout-label {
+    font-size: 0.65rem;
+  }
+
+  .frame-options {
+    gap: 8px;
+  }
+  
+  .frame-thumb-btn {
+    min-width: 80px;
+    font-size: 0.8rem;
+    padding: 8px;
+  }
+
+  /* Capture Screen */
+  .camera-viewport-wrapper {
+    max-width: 360px;
+  }
+
+  /* Decorate Screen */
   .decorate-content {
     grid-template-columns: 1fr;
     max-height: none;
     overflow-y: visible;
+    gap: 16px;
   }
+  
   .photo-strip-preview-area {
-    min-height: 360px;
+    min-height: auto;
+    max-height: 380px;
+    padding: 8px;
+    background: rgba(0, 0, 0, 0.4);
   }
+  
+  .decorate-sidebar {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .sticker-categories {
+    padding-bottom: 4px;
+  }
+
+  .category-tab {
+    font-size: 0.8rem;
+    padding: 4px 6px;
+  }
+  
   .sticker-grid {
-    max-height: 120px;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    max-height: 80px !important;
+    gap: 8px;
+    padding: 4px 0 10px 0;
+    -webkit-overflow-scrolling: touch;
   }
-  .layout-options {
-    grid-template-columns: 1fr;
+  
+  .sticker-item {
+    flex: 0 0 54px !important;
+    height: 54px !important;
+    aspect-ratio: 1 !important;
+    padding: 4px;
   }
-  .frame-options {
-    justify-content: center;
+
+  .instructions-card {
+    display: none; /* Hide instructions to save vertical space on mobile */
   }
+
+  /* Control Panel */
   .arcade-control-panel {
     padding: 16px 20px;
   }
+  
   .joystick-base {
     width: 50px;
     height: 50px;
   }
+  
   .joystick-shaft {
     height: 35px;
     bottom: 20px;
   }
+  
   .joystick-ball {
     width: 24px;
     height: 24px;
     top: -18px;
   }
+  
   .console-btn {
     width: 36px;
     height: 36px;
   }
+  
   .coin-door {
     display: none;
+  }
+}
+
+/* Tiny mobile viewport adjustments */
+@media (max-width: 480px) {
+  body {
+    padding: 0;
+  }
+  
+  .arcade-cabinet {
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    min-height: 100vh;
+  }
+
+  .arcade-marquee {
+    padding: 12px 6px;
+  }
+
+  .neon-title {
+    font-size: 1.5rem;
+  }
+
+  .arcade-screen-bezel {
+    padding: 8px;
+    background: var(--bg-screen-inner); /* Blends bezel away */
+  }
+
+  .arcade-screen-content {
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .screen {
+    padding: 12px;
+  }
+
+  .screen-title {
+    font-size: 1.1rem;
+    margin-bottom: 16px;
+  }
+
+  .setting-label {
+    font-size: 0.6rem;
+  }
+
+  /* Hide physical arcade panel and coin door base on phones to maximize screen space */
+  .arcade-control-panel {
+    display: none;
+  }
+
+  .arcade-cabinet-base {
+    display: none;
+  }
+  
+  .camera-viewport-wrapper {
+    max-width: 100%;
+  }
+
+  .photo-strip-preview-area {
+    max-height: 320px;
+  }
+
+  .review-card {
+    border-width: 2px;
+  }
+
+  .btn-retake {
+    font-size: 0.5rem;
+    padding: 4px 8px;
+  }
+  
+  .download-actions {
+    gap: 10px;
+  }
+  
+  .arcade-btn-primary {
+    font-size: 0.9rem;
+    padding: 12px 24px;
+  }
+
+  .arcade-btn-secondary {
+    font-size: 0.75rem;
+    padding: 10px 20px;
   }
 }
